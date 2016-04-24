@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.ManageDao">
+    <select id="findManageByName" resultType="com.forum.entities.Manage">
+        SELECT * FROM manage WHERE managename=#{managename}
+    </select>
+
+    <delete id="deleteTopic" parameterType="int">
+        DELETE FROM replay WHERE topicid=#{TopicId}
+    </delete>
+
+    <select id="getAllUser" resultType="com.forum.entities.User">
+        SELECT id,username,userdisable FROM usertable
+    </select>
+
+    <update id="banId" parameterType="int">
+        UPDATE usertable SET userdisable=0 WHERE id=#{id}
+    </update>
+
+    <update id="openId" parameterType="int">
+        UPDATE usertable SET userdisable=1 WHERE id=#{id}
+    </update>
+
+    <select id="searchUserByName" parameterType="string" resultType="com.forum.entities.User">
+        SELECT id,username,userdisable FROM usertable WHERE username LIKE CONCAT('%',#{username},'%')
+    </select>
+
+    <select id="getAllTopic" resultType="com.forum.entities.Topic">
+        SELECT id,title,topicdisable FROM topic
+    </select>
+
+    <update id="banTopicById" parameterType="int">
+        UPDATE topic SET topicdisable=0 WHERE id=#{id}
+    </update>
+
+    <update id="openTopicById" parameterType="int">
+        UPDATE topic SET topicdisable=1 WHERE id=#{id}
+    </update>
+
+    <select id="searchTopicByTitleOrContent" parameterType="string" resultType="com.forum.entities.Topic">
+        SELECT id,title,topicdisable FROM topic WHERE title LIKE CONCAT('%',#{valuekey},'%') OR content LIKE CONCAT('%',#{valuekey},'%')
+    </select>
+</mapper>

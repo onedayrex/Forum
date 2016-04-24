@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.LimitDao">
+    <select id="getTopicCount" parameterType="int" resultType="int">
+        SELECT COUNT(0) FROM topic WHERE userid=#{userid}
+    </select>
+
+   <update id="changeLimit">
+       UPDATE usertable SET topiclimit=#{topiclimit} WHERE id=#{userid}
+   </update>
+
+    <select id="getReplayCount" parameterType="int" resultType="int">
+        SELECT COUNT(0) FROM replay WHERE userid=#{userid}
+    </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.UserDao">
+    <select id="getUserByUserName" parameterType="string" resultType="com.forum.entities.User">
+       SELECT * FROM usertable WHERE username=#{username}
+    </select>
+
+    <update id="updataPassword" parameterType="com.forum.entities.User">
+        UPDATE usertable SET password=#{password} WHERE username=#{username}
+    </update>
+
+    <select id="getUserById" parameterType="int" resultType="com.forum.entities.User">
+        SELECT * FROM usertable WHERE id = #{id}
+    </select>
+
+    <update id="uploadhead">
+        UPDATE usertable SET headpath=#{path} WHERE username = #{username}
+    </update>
+    
+    <select id="getUserTopic" parameterType="int" resultType="com.forum.entities.Topic">
+        SELECT * FROM topic WHERE userid=#{id}
+    </select>
+
+    <select id="getUserReplay" resultMap="usereplaymap">
+       SELECT * FROM replay WHERE userid=#{id} LIMIT #{begin},#{end}
+    </select>
+
+    <resultMap id="usereplaymap" type="com.forum.entities.UserReplay">
+    <id property="id" column="id"></id>
+    <association property="topic" column="topicid" select="gettopicbytopicid"></association>
+</resultMap>
+
+    <select id="gettopicbytopicid" parameterType="int" resultType="com.forum.entities.Topic">
+        SELECT * FROM topic WHERE id=#{topicid}
+    </select>
+
+    <select id="getUserReplayCount" resultType="int">
+        SELECT COUNT(0) FROM replay WHERE userid=#{id}
+    </select>
+
+</mapper>

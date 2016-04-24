@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.TitleDao">
+    <select id="findAllTopic" resultMap="titlemap">
+        SELECT * FROM topic ORDER BY creatime DESC LIMIT #{begin},#{end}
+    </select>
+    
+    <resultMap id="titlemap" type="com.forum.entities.Topic">
+        <id property="id" column="id"></id>
+       <association property="user" column="userid" select="getUser"></association>
+    </resultMap>
+
+    <select id="getUser" parameterType="int" resultType="com.forum.entities.User">
+        SELECT username,headpath FROM usertable WHERE id=#{userid}
+    </select>
+
+    <select id="findAllCount" resultType="integer">
+        SELECT COUNT(0) FROM topic
+    </select>
+</mapper>

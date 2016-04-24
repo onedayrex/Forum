@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.ReplayDao">
+    <select id="findTopicReplayById" resultMap="replaymap">
+      SELECT * FROM replay WHERE topicid = #{topicid} LIMIT #{begin},#{end}
+    </select>
+
+    <resultMap id="replaymap" type="com.forum.entities.Replay">
+        <id property="id" column="id"></id>
+        <association property="user" column="userid" select="finduser"></association>
+    </resultMap>
+
+    <select id="finduser" parameterType="int" resultType="com.forum.entities.User">
+        SELECT id,username,headpath FROM usertable WHERE id=#{userid}
+    </select>
+    <insert id="creatReplay" parameterType="com.forum.entities.Replay">
+        INSERT INTO replay(topicid, userid, content, replaytime)
+        VALUES (#{topicid},#{userid},#{content},#{replaytime})
+    </insert>
+
+    <select id="findReplayCount" parameterType="int" resultType="integer">
+        SELECT COUNT(0) FROM replay WHERE topicid=#{topicid}
+    </select>
+
+    <update id="deletereplay" parameterType="int">
+        UPDATE replay SET disable=0 WHERE id=#{replayid}
+    </update>
+</mapper>

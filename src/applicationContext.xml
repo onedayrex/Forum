@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+       <context:component-scan base-package="com.forum"></context:component-scan>
+       <mvc:annotation-driven></mvc:annotation-driven>
+       <util:properties id="jdbc" location="classpath:db.properties"></util:properties>
+       <util:properties id="limitpro" location="classpath:limit.properties"></util:properties>
+
+       <!--c3p0数据库连接池-->
+       <bean id="db" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+              <property name="driverClass" value="#{jdbc.driver}"></property>
+              <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/forum?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+              <property name="user" value="#{jdbc.user}"></property>
+              <property name="password" value="#{jdbc.password}"></property>
+              <property name="initialPoolSize" value="5"></property>
+              <property name="minPoolSize" value="2"></property>
+              <property name="maxPoolSize" value="10"></property>
+       </bean>
+
+       <!--mybatis factory配置-->
+       <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="db"></property>
+              <property name="mapperLocations" value="classpath:com/forum/sql/*.xml"></property>
+        </bean>
+       <!--mybatis mapper自动扫描配置-->
+       <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+              <property name="sqlSessionFactory" ref="factory"></property>
+              <property name="basePackage" value="com.forum.dao"></property>
+       </bean>
+
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+              <property name="prefix" value="/WEB-INF/"></property>
+              <property name="suffix" value=".jsp"></property>
+       </bean>
+       <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+              <property name="dataSource" ref="db"></property>
+       </bean>
+
+       <!--spring 文件上传配置-->
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+              <property name="maxUploadSize" value="10485760"></property>
+       </bean>
+
+       <!--当进行发贴与回复操作后，对权限进行更改-->
+       <aop:config>
+              <aop:aspect id="limitAop" ref="limit">
+                     <aop:pointcut id="creat" expression="execution(* com.forum.serviceimp.TopicServiceImp.CreateTopic(..))"></aop:pointcut>
+                     <aop:before pointcut-ref="creat" method="creatBefore"></aop:before>
+                     <aop:after  pointcut-ref="creat" method="creatdoAfter"></aop:after>
+              </aop:aspect>
+              <aop:aspect id="replayAop" ref="limit">
+                     <aop:pointcut id="replayaop" expression="execution(* com.forum.serviceimp.ReplayServiceImp.creatReplay(..))"></aop:pointcut>
+                     <aop:before pointcut-ref="replayaop" method="creatBefore"></aop:before>
+                     <aop:after pointcut-ref="replayaop" method="creatdoAfter"></aop:after>
+              </aop:aspect>
+       </aop:config>
+
+       <bean id="limit" class="com.forum.aop.LimitAop"></bean>
+</beans>
