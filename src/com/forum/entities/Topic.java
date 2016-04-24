@@ -15,6 +15,25 @@ public class Topic {
     private Timestamp creatime;
     private Integer topiclimit;
     private User user;
+    private Integer conter;
+    private Timestamp lasttime;
+
+
+    public Timestamp getLasttime() {
+        return lasttime;
+    }
+
+    public void setLasttime(Timestamp lasttime) {
+        this.lasttime = lasttime;
+    }
+
+    public Integer getConter(){
+        return conter;
+    }
+
+    public void setConter(Integer conter){
+        this.conter = conter;
+    }
 
     public Integer getTopicdisable() {
         return topicdisable;

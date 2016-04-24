@@ -26,4 +26,8 @@
     <update id="deletereplay" parameterType="int">
         UPDATE replay SET disable=0 WHERE id=#{replayid}
     </update>
+
+    <update id="updateTopicLastTime">
+        update topic set lasttime = #{time} where id=#{topicid};
+    </update>
 </mapper>

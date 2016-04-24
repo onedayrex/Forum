@@ -10,4 +10,10 @@
     <select id="getTopicById" parameterType="int" resultType="com.forum.entities.Topic">
         SELECT * FROM topic WHERE id=#{id}
     </select>
+
+
+    <!--对点击量conter加1操作-->
+    <update id="updateconter" parameterType="int">
+        update topic set conter = conter+1 where id=#{id};
+    </update>
 </mapper>

@@ -48,6 +48,7 @@ public class TopicServiceImp implements TopicService {
         topic.setTitle(title);
         topic.setUserid(user.getId());
         topic.setCreatime(new Timestamp(System.currentTimeMillis()));
+        topic.setLasttime(topic.getCreatime());
         topic.setBlockid(1);
         topic.setTopiclimit(Integer.parseInt(topiclimit));
         topicDao.CreatTopic(topic);
@@ -58,6 +59,7 @@ public class TopicServiceImp implements TopicService {
         String id = req.getParameter("id");
         if(!id.isEmpty()&&id!=null){
             Topic topic = topicDao.getTopicById(new Integer(id));
+            topicDao.updateconter(new Integer(id));
             User user = userDao.getUserById(topic.getUserid());
             req.setAttribute("showuser",user);
             req.setAttribute("topic",topic);

@@ -9,4 +9,6 @@ public interface TopicDao {
     public void CreatTopic(Topic topic);
 
     public Topic getTopicById(int id);
+
+    public void updateconter(int id);
 }

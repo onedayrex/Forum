@@ -58,6 +58,7 @@ public class ReplayServiceImp implements ReplayService {
         replay.setContent(content);
         replay.setReplaytime(new Timestamp(System.currentTimeMillis()));
         replayDao.creatReplay(replay);
+        replayDao.updateTopicLastTime(new Integer(topicid),replay.getReplaytime());
     }
 
     @Override

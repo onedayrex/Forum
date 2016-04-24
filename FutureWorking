@@ -1,0 +1,21 @@
+需要做的事，做完用࿊来表示
+
+用户显示所有帖子：
+    1、sql中topic加入conter来记录访问次数࿊
+        --在topic的entity中加入属性࿊
+        --写jsp页面的改动(能够从数据库中取出数据并展示)࿊
+        --给点击帖子方法加入对conter的修改࿊
+            --在topicDao中加入方法对conter点击次数进行修改࿊
+    2、sql中topic加入lasttime来记录最后回复时间
+        --对alltitle页面的修改
+        --对topic的entity中加入属性࿊
+        --对creattopic设置lasttime的初始值࿊
+        --当有回复时，在回复方法中修改lasttime࿊
+
+管理员页面的美观度
+    1、导航栏
+    2、对查找后的数据的分页(现在管理员页面没用使用一个分页的
+        --可用一条sql通过查询帖子与count(0),来各自返回。
+        --使用bootstrap插件来显示分页
+
+对所有jsp页面的整理，把Js封装起来，不能到处都有

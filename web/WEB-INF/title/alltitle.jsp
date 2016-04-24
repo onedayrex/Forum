@@ -35,6 +35,10 @@
                 </div>
                 <hr>
               </div>
+              <div class="media-right">
+                <span class="label label-danger">${c.conter}</span>
+                <span class="label label-default"><fmt:formatDate value="${c.lasttime}" type="both" pattern="yy-MM-dd hh:mm"></fmt:formatDate></span>
+              </div>
             </div>
           </c:forEach>
         </div>
