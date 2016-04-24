@@ -178,7 +178,7 @@ public class MainController {
         return "redirect:tologin.do";
     }
 
-    @RequestMapping("/tomanagelogin.do")
+    @RequestMapping("/admin.do")
     public String toManageLogin(){
         return "manage/managelogin";
     }
@@ -189,11 +189,11 @@ public class MainController {
             if(manageService.checkManage(manage,req)){
                 return "redirect:tomanage.do";
             }else {
-                return "redirect:tomanagelogin.do";
+                return "redirect:admin.do";
             }
         } else {
             req.setAttribute("error","输入信息出错");
-            return  "redirect:tomanagelogin.do";
+            return  "redirect:admin.do";
         }
     }
 
@@ -258,7 +258,7 @@ public class MainController {
         if (manage!=null){
             return "manage/manage";
         }
-        return "redirect:tomanagelogin.do";
+        return "redirect:admin.do";
     }
 
     @RequestMapping("/tousermessage.do")

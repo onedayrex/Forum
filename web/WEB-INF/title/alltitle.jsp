@@ -38,14 +38,20 @@
             </div>
           </c:forEach>
         </div>
-          <ul class="pagination">
-            <c:if test="${pages>1}"><li class="previous"><a href="index.do?page=${pages-1}" class="fui-arrow-left">上一页</a></li></c:if>
-            <c:forEach var="cx" begin="1" end="${count}">
-              <li <c:if test="${pages==cx}">class="active"</c:if>><a href="index.do?page=${cx}">${cx}</a></li>
-            </c:forEach>
-            <c:if test="${pages lt count}"><li class="next"><a href="index.do?page=${pages+1}" class="fui-arrow-right">下一页</a></li></c:if>
-          </ul>
-          共${count}页
+          <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+              <ul class="pagination">
+                <c:if test="${pages>1}"><li class="previous"><a href="index.do?page=${pages-1}" class="fui-arrow-left">上一页</a></li></c:if>
+                <c:forEach var="cx" begin="1" end="${count}">
+                  <li <c:if test="${pages==cx}">class="active"</c:if>><a href="index.do?page=${cx}">${cx}</a></li>
+                </c:forEach>
+                <c:if test="${pages lt count}"><li class="next"><a href="index.do?page=${pages+1}" class="fui-arrow-right">下一页</a></li></c:if>
+              </ul>
+              共${count}页
+            </div>
+            <div class="col-lg-4"></div>
+          </div>
       </div>
     </div>
     <div class="col-lg-3">
