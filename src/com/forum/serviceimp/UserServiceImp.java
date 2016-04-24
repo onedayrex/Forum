@@ -79,7 +79,8 @@ public class UserServiceImp implements UserService {
                 ImageCut.imgCut(srcImagePath,imageX,imageY,imageW,imageH);
                 //获取以前的头像，如果是默认头像则不操作，如果不是默认头像则先删除服务器中头像文件
                 User temp = userDao.getUserByUserName(user.getUsername());
-                if(!temp.getHeadpath().equals("script/default.jpg")){
+                System.out.println(temp.getHeadpath());
+                if(temp.getHeadpath()!=null||!"script/default.jpg".equals(temp.getHeadpath())){
                     File file1 = new File(realPath+temp.getHeadpath());
                     file1.delete();
                 }

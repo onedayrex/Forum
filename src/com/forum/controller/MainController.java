@@ -356,7 +356,7 @@ public class MainController {
     }
 
     //异常捕获
-    @ExceptionHandler
+    //@ExceptionHandler
     public String execeptionHandler(Exception e,HttpServletRequest req){
         if(e==null){
             req.setAttribute("error","用户被禁用，请联系管理员");
