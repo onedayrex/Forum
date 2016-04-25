@@ -30,13 +30,13 @@
               <div class="media-body">
                 <div class="media-middle">
                   <a href="/toshow.do?id=${c.id}" class="am-text-truncate" style="color: #778087;font-size: large">${c.title}</a>
-                  <p class="small">用户:${c.user.username}</p>
                   <p class="small">发贴时间：<fmt:formatDate value="${c.creatime}" type="both"></fmt:formatDate></p>
+                  <span class="small"><span class="glyphicon glyphicon-eye-open">${c.conter}浏览</span></span>
                 </div>
                 <hr>
               </div>
               <div class="media-right">
-                <span class="label label-danger">${c.conter}</span>
+                <%--<span class="label label-danger">${c.conter}</span>--%>
                 <span class="label label-default"><fmt:formatDate value="${c.lasttime}" type="both" pattern="yy-MM-dd hh:mm"></fmt:formatDate></span>
               </div>
             </div>
