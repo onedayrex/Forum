@@ -58,7 +58,10 @@
                 </div>
                 <div class="media-body">
                   <div class="media-heading">
-                    <i><a href="#">${c.user.username}</a><span class="small"><fmt:formatDate value="${c.replaytime}" type="both"></fmt:formatDate></span></i>
+                    <p class="small-fade">
+                      <i><a href="#">${c.user.username}</a></i>
+                      <span class="pull-right">${c.days}前</span>
+                    </p>
                   </div>
                   <div class="media-body" style="margin-left: 24px">
                     <c:if test="${c.disable==1}"><p id="${c.id}">${c.content}</p></c:if>

@@ -3,6 +3,7 @@ package com.forum.serviceimp;
 import com.forum.dao.TitleDao;
 import com.forum.entities.Topic;
 import com.forum.service.TitleService;
+import com.forum.util.DateDayUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,6 +37,14 @@ public class TitleServiceImp implements TitleService {
         Integer end = Integer.parseInt(page)*10;
         list = titleDao.findAllTopic(begin,end);
         int count = (int) Math.ceil(titleDao.findAllCount()/10.0);
+        for (Topic topic : list) {
+            if(topic.getLasttime()!=null){
+                topic.setDays(DateDayUtil.changDays(topic.getLasttime()));
+            }
+            if(topic.getCreatime()!=null){
+                topic.setCreateday(DateDayUtil.changDays(topic.getCreatime()));
+            }
+        }
         req.setAttribute("pages",Integer.parseInt(page));
         req.setAttribute("count",count);
         req.setAttribute("titlelist",list);

@@ -13,6 +13,7 @@
 <head>
   <title></title>
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="script/main.css" rel="stylesheet">
   <script type="text/javascript" src="bootstrap\js\jquery-2.0.3.js"></script>
   <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -28,16 +29,24 @@
             <div class="media">
               <div class="media-left"><a><img src="${c.user.headpath}" class="img-circle" style="width: 50px;height: 50px"></a></div>
               <div class="media-body">
-                <div class="media-middle">
+                <div class="media-heading item">
                   <a href="/toshow.do?id=${c.id}" class="am-text-truncate" style="color: #778087;font-size: large">${c.title}</a>
-                  <p class="small">发贴时间：<fmt:formatDate value="${c.creatime}" type="both"></fmt:formatDate></p>
-                  <span class="small"><span class="glyphicon glyphicon-eye-open">${c.conter}浏览</span></span>
+                  <p class="pull-right">
+                    <c:if test="${!empty c.days}"><span class="small">最后回复${c.days}前</span></c:if>
+                  </p>
                 </div>
+                <%--<div class="media-middle">--%>
+                  <%--<p class="small">发贴时间：<fmt:formatDate value="${c.creatime}" type="both"></fmt:formatDate></p>--%>
+                <%--</div>--%>
+                <p class="small">
+                  <span class="glyphicon glyphicon-eye-open">${c.conter}次浏览</span>
+                  ${c.createday}前
+                </p>
                 <hr>
               </div>
               <div class="media-right">
                 <%--<span class="label label-danger">${c.conter}</span>--%>
-                <span class="label label-default"><fmt:formatDate value="${c.lasttime}" type="both" pattern="yy-MM-dd hh:mm"></fmt:formatDate></span>
+                <%--<span class="label label-default"><fmt:formatDate value="${c.lasttime}" type="both" pattern="yy-MM-dd hh:mm"></fmt:formatDate></span>--%>
               </div>
             </div>
           </c:forEach>

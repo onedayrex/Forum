@@ -17,7 +17,24 @@ public class Topic {
     private User user;
     private Integer conter;
     private Timestamp lasttime;
+    private String days;
+    private String createday;
 
+    public String getCreateday() {
+        return createday;
+    }
+
+    public void setCreateday(String createday) {
+        this.createday = createday;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
 
     public Timestamp getLasttime() {
         return lasttime;

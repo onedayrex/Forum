@@ -5,6 +5,7 @@ import com.forum.entities.Replay;
 import com.forum.entities.User;
 import com.forum.result.ResultMap;
 import com.forum.service.ReplayService;
+import com.forum.util.DateDayUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,6 +43,9 @@ public class ReplayServiceImp implements ReplayService {
             Integer count = (int) Math.ceil(replayDao.findReplayCount(Integer.parseInt(id))/5.0);
             req.setAttribute("count",count);
             req.setAttribute("replays",replays);
+            for (Replay replay : replays) {
+                replay.setDays(DateDayUtil.changDays(replay.getReplaytime()));
+            }
             req.setAttribute("replaypage",new Integer(replaypage));
         }
     }

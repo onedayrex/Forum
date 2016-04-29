@@ -13,6 +13,15 @@ public class Replay {
     private Timestamp replaytime;
     private User user;
     private int disable;
+    private String days;
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
 
     public int getDisable() {
         return disable;

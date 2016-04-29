@@ -65,10 +65,10 @@
   <div class="container">
     <div class="navbar-header">
       <a href="index.do" style="color: white" class="navbar-brand">
-        <i class="glyphicon glyphicon-home">主页</i>
+        <i class="glyphicon glyphicon-home fontstyle">主页</i>
       </a>
       <a href="totopic.do" style="color: white" class="navbar-brand">
-        <i class="glyphicon glyphicon-edit">发表主题</i>
+        <i class="glyphicon glyphicon-edit fontstyle">发表主题</i>
       </a>
     </div>
     <div class="navbar-collapse collapse">
