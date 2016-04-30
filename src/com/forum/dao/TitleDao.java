@@ -12,4 +12,6 @@ public interface TitleDao {
     public List<Topic> findAllTopic(@Param(value = "begin") int begin, @Param(value = "end") int end);
 
     public Integer findAllCount();
+
+    public Integer getReplayCount(int replayId);
 }

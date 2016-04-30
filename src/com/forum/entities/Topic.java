@@ -19,6 +19,33 @@ public class Topic {
     private Timestamp lasttime;
     private String days;
     private String createday;
+    private Integer replaycount;
+    private Integer lastuserid;
+    private User lastreplayuser;
+
+    public Integer getLastuserid() {
+        return lastuserid;
+    }
+
+    public void setLastuserid(Integer lastuserid) {
+        this.lastuserid = lastuserid;
+    }
+
+    public User getLastreplayuser() {
+        return lastreplayuser;
+    }
+
+    public void setLastreplayuser(User lastreplayuser) {
+        this.lastreplayuser = lastreplayuser;
+    }
+
+    public Integer getReplaycount() {
+        return replaycount;
+    }
+
+    public void setReplaycount(Integer replaycount) {
+        this.replaycount = replaycount;
+    }
 
     public String getCreateday() {
         return createday;

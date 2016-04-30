@@ -31,22 +31,25 @@
               <div class="media-body">
                 <div class="media-heading item">
                   <a href="/toshow.do?id=${c.id}" class="am-text-truncate" style="color: #778087;font-size: large">${c.title}</a>
-                  <p class="pull-right">
-                    <c:if test="${!empty c.days}"><span class="small">最后回复${c.days}前</span></c:if>
-                  </p>
+
                 </div>
                 <%--<div class="media-middle">--%>
                   <%--<p class="small">发贴时间：<fmt:formatDate value="${c.creatime}" type="both"></fmt:formatDate></p>--%>
                 <%--</div>--%>
-                <p class="small">
-                  <span class="glyphicon glyphicon-eye-open">${c.conter}次浏览</span>
-                  ${c.createday}前
+                    <p class="small">
+                      ${c.createday}前 •
+                        <span class="glyphicon glyphicon-eye-open"></span> ${c.conter} •
+                        <span class="glyphicon glyphicon-comment"></span> ${c.replaycount}
+                    </p>
+                <p class="pull-right">
+                  <c:if test="${!empty c.days}"><span class="small">最后回复${c.days}前</span></c:if>
                 </p>
                 <hr>
               </div>
               <div class="media-right">
-                <%--<span class="label label-danger">${c.conter}</span>--%>
-                <%--<span class="label label-default"><fmt:formatDate value="${c.lasttime}" type="both" pattern="yy-MM-dd hh:mm"></fmt:formatDate></span>--%>
+                <c:if test="${!empty c.lastreplayuser}">
+                  <img src="${c.lastreplayuser.headpath}" class="img-circle" style="width: 35px;height: 35px">
+                </c:if>
               </div>
             </div>
           </c:forEach>

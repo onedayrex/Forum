@@ -38,12 +38,16 @@ public class TitleServiceImp implements TitleService {
         list = titleDao.findAllTopic(begin,end);
         int count = (int) Math.ceil(titleDao.findAllCount()/10.0);
         for (Topic topic : list) {
+            //转化最后回复时间
             if(topic.getLasttime()!=null){
                 topic.setDays(DateDayUtil.changDays(topic.getLasttime()));
             }
+            //转化创建时间
             if(topic.getCreatime()!=null){
                 topic.setCreateday(DateDayUtil.changDays(topic.getCreatime()));
             }
+            //查询回复数量
+            topic.setReplaycount(titleDao.getReplayCount(topic.getId()));
         }
         req.setAttribute("pages",Integer.parseInt(page));
         req.setAttribute("count",count);

@@ -30,4 +30,8 @@
     <update id="updateTopicLastTime">
         update topic set lasttime = #{time} where id=#{topicid};
     </update>
+
+    <update id="updateTopicLastId">
+        update topic set lastuserid = #{lastuserid} where id=#{topicid};
+    </update>
 </mapper>

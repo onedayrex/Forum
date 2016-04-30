@@ -21,4 +21,6 @@ public interface ReplayDao {
     public void deletereplay(int replayid);
 
     public void updateTopicLastTime(@Param(value = "topicid") int topicid, @Param(value = "time") Timestamp time);
+
+    public void updateTopicLastId(@Param(value = "topicid") int topicid,@Param(value = "lastuserid") int lastuserid);
 }

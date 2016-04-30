@@ -9,13 +9,18 @@
     <resultMap id="titlemap" type="com.forum.entities.Topic">
         <id property="id" column="id"></id>
        <association property="user" column="userid" select="getUser"></association>
+        <association property="lastreplayuser" column="lastuserid" select="getUser"></association>
     </resultMap>
 
     <select id="getUser" parameterType="int" resultType="com.forum.entities.User">
-        SELECT username,headpath FROM usertable WHERE id=#{userid}
+        SELECT id,username,headpath FROM usertable WHERE id=#{userid}
     </select>
 
     <select id="findAllCount" resultType="integer">
         SELECT COUNT(0) FROM topic
+    </select>
+
+    <select id="getReplayCount" parameterType="int" resultType="integer">
+        SELECT COUNT(0) FROM replay WHERE topicid=#{replayId}
     </select>
 </mapper>

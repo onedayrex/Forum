@@ -93,10 +93,10 @@
             </i>
           </a>
           <ul class="dropdown-menu animated" data-animation="flipInX">
-            <li><a href="tousermessage.do">个人信息</a></li>
+            <li><a href="tousermessage.do"><span class="glyphicon glyphicon-user">个人信息</span></a></li>
             <li class="divider"></li>
-            <li><a href="toupdata.do">密码修改</a></li>
-            <li><a href="touploadhead.do">头像上传</a></li>
+            <li><a href="toupdata.do"><span class="glyphicon glyphicon-modal-window">密码修改</span></a></li>
+            <li><a href="touploadhead.do"><span class="glyphicon glyphicon-picture">头像上传</span></a></li>
           </ul>
         </li>
         </c:when>
