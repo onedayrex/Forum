@@ -43,4 +43,7 @@
         SELECT COUNT(0) FROM topic WHERE userid=#{id}
     </select>
 
+    <select id="getNormalUserById" parameterType="int" resultType="com.forum.entities.User">
+        SELECT id,username,headpath FROM usertable WHERE id=#{userid}
+    </select>
 </mapper>

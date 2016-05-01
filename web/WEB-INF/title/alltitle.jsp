@@ -16,6 +16,7 @@
   <link href="script/main.css" rel="stylesheet">
   <script type="text/javascript" src="bootstrap\js\jquery-2.0.3.js"></script>
   <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="script/jqPaginator.min.js"></script>
 
 </head>
 <body style="background-color: #e2e2e2">
@@ -54,20 +55,11 @@
             </div>
           </c:forEach>
         </div>
-          <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-              <ul class="pagination">
-                <c:if test="${pages>1}"><li class="previous"><a href="index.do?page=${pages-1}" class="fui-arrow-left">上一页</a></li></c:if>
-                <c:forEach var="cx" begin="1" end="${count}">
-                  <li <c:if test="${pages==cx}">class="active"</c:if>><a href="index.do?page=${cx}">${cx}</a></li>
-                </c:forEach>
-                <c:if test="${pages lt count}"><li class="next"><a href="index.do?page=${pages+1}" class="fui-arrow-right">下一页</a></li></c:if>
-              </ul>
-              共${count}页
-            </div>
-            <div class="col-lg-4"></div>
-          </div>
+        <div class="panel-footer">
+          <nav style="text-align: center">
+            <ul id="titlepages" class="pagination"></ul>
+          </nav>
+        </div>
       </div>
     </div>
     <div class="col-lg-3">
@@ -82,5 +74,30 @@
   </div>
 </div>
 </body>
+<script type="text/javascript">
+  $(function () {
+    inittitlepage();
+  });
+  //分页初始化
+  function inittitlepage() {
+    var count = ${count};
+    var pages = ${pages};
+    $("#titlepages").jqPaginator({
+      totalPages:count,
+      visiblePages:10,
+      currentPage: pages,
+      first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+      prev: '<li class="prev"><a href="javascript:void(0);">上一页<\/a><\/li>',
+      next: '<li class="next"><a href="javascript:void(0);">下一页<\/a><\/li>',
+      last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+      page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+      onPageChange:function (num) {
+        if(num!=pages){
+          window.location.href="index.do?page="+num;
+        }
+      }
 
+    });
+  }
+</script>
 </html>

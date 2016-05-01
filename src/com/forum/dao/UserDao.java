@@ -30,4 +30,7 @@ public interface UserDao {
     public int getUserReplayCount(int id);
 
     public int getUserTitleCount(int id);
+
+    //普通用户查询其他用户
+    public User getNormalUserById(int id);
 }

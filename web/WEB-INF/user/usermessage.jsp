@@ -155,7 +155,7 @@
     <div class="col-lg-8">
       <div class="panel">
         <div class="panel-heading">
-          <h1 style="text-align: center">个人信息</h1>
+          <h1 style="text-align: center"><img src="${normaluser.headpath}" class="img-circle" style="width: 50px;height: 50px">${normaluser.username}的个人信息</h1>
         </div>
         <div class="panel-body">
           <ul id="userTabs" class="nav nav-tabs">

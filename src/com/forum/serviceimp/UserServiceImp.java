@@ -123,4 +123,8 @@ public class UserServiceImp implements UserService {
         result.setObj(count);
         return result;
     }
+
+    public User getNormalUserById(int id){
+        return userDao.getNormalUserById(id);
+    }
 }

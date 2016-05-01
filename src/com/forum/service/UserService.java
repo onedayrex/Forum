@@ -25,4 +25,6 @@ public interface UserService {
 
     public ResultMap getUserTitleCount(int id);
 
+    public User getNormalUserById(int id);
+
 }

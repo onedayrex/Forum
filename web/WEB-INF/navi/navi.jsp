@@ -14,6 +14,15 @@
     <title></title>
   <script type="text/javascript">
     $(function(){
+      //判断用户有没有登陆，没有则提示弹出登陆
+      $("#creattopic").click(function () {
+        var user = ${user.id}+1;
+        if(user==1){
+          $("#taglogin").click();
+          return false;
+        }
+      });
+
       $("#login").click(function(){
         var username = $("#username").val().trim();
         var password = $("#pwd").val().trim();
@@ -67,7 +76,7 @@
       <a href="index.do" style="color: white" class="navbar-brand">
         <i class="glyphicon glyphicon-home fontstyle">主页</i>
       </a>
-      <a href="totopic.do" style="color: white" class="navbar-brand">
+      <a id="creattopic" href="totopic.do" style="color: white" class="navbar-brand">
         <i class="glyphicon glyphicon-edit fontstyle">发表主题</i>
       </a>
     </div>
@@ -104,7 +113,7 @@
         <c:otherwise>
 
           <!-- 登陆模态框 -->
-          <a href="" data-toggle="modal" data-target=".logmodal">登录</a>
+          <a href="" data-toggle="modal" data-target=".logmodal" id="taglogin">登录</a>
 
           <div class="modal fade logmodal" tabindex="-1" role="dialog" aria-labelledby="theloginmodal" id="loginmodal">
             <div class="modal-dialog modal-lg">

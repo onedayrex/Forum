@@ -19,6 +19,7 @@
   <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"></script>
   <script type="text/javascript" src="ueditor/lang/zh-cn/zh-cn.js"></script>
   <script type="text/javascript" src="script/disablereplay.js"></script>
+  <script type="text/javascript" src="script/jqPaginator.min.js"></script>
 </head>
 <body style="background-color: #e2e2e2">
 <c:import url="/WEB-INF/navi/navi.jsp"></c:import>
@@ -80,15 +81,22 @@
                 </div>
               </div>
                 <hr>
-                <ul class="pagination">
               </c:forEach>
-              <c:if test="${requestScope.replaypage>1}"><li class="previous"><a href="toshow.do?id=${topic.id}&replaypage=${requestScope.replaypage-1}">上一页</a></li></c:if>
-              <c:forEach var="c" begin="1" end="${requestScope.count}">
-                <li <c:if test="${replaypage==c}">class="active"</c:if>><a href="toshow.do?id=${topic.id}&replaypage=${c}">${c}</a></li>
-              </c:forEach>
-              <c:if test="${requestScope.replaypage lt requestScope.count}"><li class="next"><a href="toshow.do?id=${topic.id}&replaypage=${requestScope.replaypage+1}">下一页</a></li></c:if>共${count}页
-                </ul>
+                <%--<ul class="pagination">--%>
+              <%--</c:forEach>--%>
+              <%--<c:if test="${requestScope.replaypage>1}"><li class="previous"><a href="toshow.do?id=${topic.id}&replaypage=${requestScope.replaypage-1}">上一页</a></li></c:if>--%>
+              <%--<c:forEach var="c" begin="1" end="${requestScope.count}">--%>
+                <%--<li <c:if test="${replaypage==c}">class="active"</c:if>><a href="toshow.do?id=${topic.id}&replaypage=${c}">${c}</a></li>--%>
+              <%--</c:forEach>--%>
+              <%--<c:if test="${requestScope.replaypage lt requestScope.count}"><li class="next"><a href="toshow.do?id=${topic.id}&replaypage=${requestScope.replaypage+1}">下一页</a></li></c:if>共${count}页--%>
+                <%--</ul>--%>
             </div>
+          </div>
+          <div class="panel-footer">
+            <nav style="text-align: center">
+              <ul id="replaypage" class="pagination" style="text-align: center"></ul>
+            </nav>
+
           </div>
         </div>
         <div class="panel panel-default">
@@ -149,6 +157,28 @@
       return true;
     }
   }
+
+  function initpage() {
+    var count = ${count};
+    var pages = ${replaypage};
+    $("#replaypage").jqPaginator({
+      totalPages:count,
+      visiblePages:5,
+      currentPage:pages,
+      first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+      prev: '<li class="prev"><a href="javascript:void(0);">上一页<\/a><\/li>',
+      next: '<li class="next"><a href="javascript:void(0);">下一页<\/a><\/li>',
+      last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+      page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+      onPageChange:function (num) {
+        if(num!=pages){
+          window.location.href="toshow.do?id=${topic.id}&replaypage="+num;
+        }
+      }
+    });
+
+  }
+  initpage();
 
 </script>
 </html>

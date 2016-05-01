@@ -265,11 +265,12 @@ public class MainController {
     @RequestMapping("/tousermessage.do")
     public String tousermessage(int userid, Model model,HttpSession session){
         User user = (User) session.getAttribute("user");
-        if(userid==user.getId()){
+        if(user!=null&&userid==user.getId()){
             model.addAttribute("who","user");
         }else {
             model.addAttribute("who", "otheruser");
         }
+        model.addAttribute("normaluser",userService.getNormalUserById(userid));
         model.addAttribute("userid",userid);
         return "user/usermessage";
     }
