@@ -19,7 +19,7 @@
     </update>
     
     <select id="getUserTopic" parameterType="int" resultType="com.forum.entities.Topic">
-        SELECT * FROM topic WHERE userid=#{id}
+        SELECT * FROM topic WHERE userid=#{id} LIMIT #{begin},#{end}
     </select>
 
     <select id="getUserReplay" resultMap="usereplaymap">
@@ -37,6 +37,10 @@
 
     <select id="getUserReplayCount" resultType="int">
         SELECT COUNT(0) FROM replay WHERE userid=#{id}
+    </select>
+
+    <select id="getUserTitleCount" resultType="int">
+        SELECT COUNT(0) FROM topic WHERE userid=#{id}
     </select>
 
 </mapper>

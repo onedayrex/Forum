@@ -17,9 +17,12 @@ public interface UserService {
 
     public void uploadhead(HttpServletRequest req,String x,String y,String h,String w,MultipartFile imageFile ) throws IOException;
 
-    public ResultMap getUserTopic(int id);
+    public ResultMap getUserTopic(int id,int page);
 
     public ResultMap getUserReplay(int id,int page);
 
     public ResultMap getUserReplayCount(int id);
+
+    public ResultMap getUserTitleCount(int id);
+
 }

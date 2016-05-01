@@ -22,10 +22,12 @@ public interface UserDao {
     public void uploadhead(@Param(value = "path") String path, @Param(value = "username") String username);
 
 
-    public List<Topic> getUserTopic(int id);
+    public List<Topic> getUserTopic(@Param(value = "id") int id,@Param(value = "begin")int begin,@Param(value = "end") int end);
 
 
     public List<UserReplay> getUserReplay(@Param(value = "id") int id, @Param(value = "begin") int begin, @Param(value = "end") int end);
 
     public int getUserReplayCount(int id);
+
+    public int getUserTitleCount(int id);
 }

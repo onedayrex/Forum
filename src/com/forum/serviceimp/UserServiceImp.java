@@ -91,9 +91,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public ResultMap getUserTopic(int id) {
+    public ResultMap getUserTopic(int id,int page) {
         ResultMap result = new ResultMap();
-        List<Topic> topics = userDao.getUserTopic(id);
+        int begin =(page-1)*5;
+        int end = 5;
+        List<Topic> topics = userDao.getUserTopic(id,begin,end);
         result.setObj(topics);
         return result;
     }
@@ -110,6 +112,14 @@ public class UserServiceImp implements UserService {
     public ResultMap getUserReplayCount(int id){
         ResultMap result = new ResultMap();
         int count = userDao.getUserReplayCount(id);
+        result.setObj(count);
+        return result;
+    }
+
+    @Override
+    public ResultMap getUserTitleCount(int id) {
+        ResultMap result = new ResultMap();
+        int count = userDao.getUserTitleCount(id);
         result.setObj(count);
         return result;
     }

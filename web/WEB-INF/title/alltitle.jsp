@@ -27,10 +27,10 @@
         <div class="panel-body">
           <c:forEach items="${titlelist}" var="c">
             <div class="media">
-              <div class="media-left"><a><img src="${c.user.headpath}" class="img-circle" style="width: 50px;height: 50px"></a></div>
+              <div class="media-left"><a href="tousermessage.do?userid=${c.user.id}"><img src="${c.user.headpath}" class="img-circle" style="width: 50px;height: 50px"></a></div>
               <div class="media-body">
                 <div class="media-heading item">
-                  <a href="/toshow.do?id=${c.id}" class="am-text-truncate" style="color: #778087;font-size: large">${c.title}</a>
+                  <a href="toshow.do?id=${c.id}" class="am-text-truncate" style="color: #778087;font-size: large">${c.title}</a>
 
                 </div>
                 <%--<div class="media-middle">--%>
@@ -48,7 +48,7 @@
               </div>
               <div class="media-right">
                 <c:if test="${!empty c.lastreplayuser}">
-                  <img src="${c.lastreplayuser.headpath}" class="img-circle" style="width: 35px;height: 35px">
+                  <a href="tousermessage.do?userid=${c.lastreplayuser.id}"><img src="${c.lastreplayuser.headpath}" class="img-circle" style="width: 35px;height: 35px"></a>
                 </c:if>
               </div>
             </div>

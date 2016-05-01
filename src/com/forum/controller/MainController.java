@@ -7,6 +7,7 @@ import com.forum.exception.UserDisableException;
 import com.forum.result.ResultMap;
 import com.forum.service.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -262,7 +263,14 @@ public class MainController {
     }
 
     @RequestMapping("/tousermessage.do")
-    public String tousermessage(){
+    public String tousermessage(int userid, Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(userid==user.getId()){
+            model.addAttribute("who","user");
+        }else {
+            model.addAttribute("who", "otheruser");
+        }
+        model.addAttribute("userid",userid);
         return "user/usermessage";
     }
 
@@ -331,30 +339,29 @@ public class MainController {
     //用户获取自己的所有主题
     @RequestMapping("/getusertopic.do")
     @ResponseBody
-    public ResultMap getUsertopic(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        int id = user.getId();
-        return userService.getUserTopic(new Integer(id));
+    public ResultMap getUsertopic(int userid,int page){
+        return userService.getUserTopic(userid,page);
     }
 
     //用户获取自己的所有回复
     @RequestMapping("/getuserreplay.do")
     @ResponseBody
-    public ResultMap getUserReplay(HttpSession session,int page){
-        User user = (User) session.getAttribute("user");
-        int id = user.getId();
-        return userService.getUserReplay(id,page);
+    public ResultMap getUserReplay(int page,int userid){
+        return userService.getUserReplay(userid,page);
     }
 
     //用户获取自己回复总数
     @RequestMapping("/getuserreplaycount.do")
     @ResponseBody
-    public ResultMap getUserReplayCount(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        int id = user.getId();
-        return userService.getUserReplayCount(id);
+    public ResultMap getUserReplayCount(int userid){
+        return userService.getUserReplayCount(userid);
     }
-
+    //用户获取自己主题总数
+    @RequestMapping("/getusertitlecount.do")
+    @ResponseBody
+    public ResultMap getUserTitleCount(int id){
+        return userService.getUserTitleCount(id);
+    }
     //异常捕获
     //@ExceptionHandler
     public String execeptionHandler(Exception e,HttpServletRequest req){

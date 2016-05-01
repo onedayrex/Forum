@@ -20,28 +20,9 @@
       $("#userTabs a").click(function (e) {
         e.preventDefault();
         if(this.id=="MyTopic"){
-          $("#titlebody").html("");
-          $.ajax({
-            url:"getusertopic.do",
-            type:"post",
-            datatype:"json",
-            data:{},
-            success: function (result) {
-              var topics = result.obj;
-              for(var i =0 ;i<topics.length;i++){
-                var title = topics[i].title;
-                var topicid = topics[i].id;
-                var creatime = topics[i].creatime;
-                var timestr = getLocalTime(creatime);
-                var str = "<tr><td>"+title+"</td><td>"+timestr+"</td><td><a href='toshow.do?id="+topicid+"' class='btn btn-default'>查看</a></td></tr>"
-                var $tr = $(str);
-                $("#titlebody").append($tr);
-              }
-            },
-            error: function () {
-              alert("系统出错，请稍后再试");
-            }
-          });
+          inittitlepage();
+          var page = 1;
+          gettitledata(page);
         }
         else if(this.id=="MyReplay"){
           initpage();
@@ -54,13 +35,41 @@
 
 
     });
+    //标题分布初始化
+    function inittitlepage() {
+      var count;
+      var userid = ${userid};
+      $.ajax({
+        url:"getusertitlecount.do",
+        type:"post",
+        data:{"id":userid},
+        datatype:"json",
+        success: function (result) {
+          count = result.obj;
+          $("#titlepage").extendPagination({
 
-    //分页初始化
+            totalCount:count,
+            showCount:5,
+            limit:5,
+            callback:function (curr) {
+              getreplaydata(curr);
+            }
+
+          });
+        },
+        error: function () {
+          alert("系统出错，请稍后再试");
+        }
+      });
+    }
+    //回复分页初始化
     function initpage(){
       var count;
+      var userid = ${userid};
       $.ajax({
         url:"getuserreplaycount.do",
         type:"post",
+        data:{"userid":userid},
         datatype:"json",
         success: function (result) {
           count = result.obj;
@@ -81,14 +90,40 @@
       });
 
     }
-
+    //获取用户主题
+    function gettitledata(page){
+      $("#titlebody").html("");
+      var userid = ${userid};
+      $.ajax({
+        url:"getusertopic.do",
+        type:"post",
+        datatype:"json",
+        data:{"page":page,"userid":userid},
+        success: function (result) {
+          var topics = result.obj;
+          for(var i =0 ;i<topics.length;i++){
+            var title = topics[i].title;
+            var topicid = topics[i].id;
+            var creatime = topics[i].creatime;
+            var timestr = getLocalTime(creatime);
+            var str = "<tr><td>"+title+"</td><td>"+timestr+"</td><td><a href='toshow.do?id="+topicid+"' class='btn btn-default'>查看</a></td></tr>"
+            var $tr = $(str);
+            $("#titlebody").append($tr);
+          }
+        },
+        error: function () {
+          alert("系统出错，请稍后再试");
+        }
+      });
+    }
     function getreplaydata(page){
       $("#replaybody").html("");
+      var userid = ${userid};
       $.ajax({
         url:"getuserreplay.do",
         type:"post",
         datatype:"json",
-        data:{"page":page},
+        data:{"page":page,"userid":userid},
         success: function (result) {
           var replays = result.obj;
           for (var i=0;i<=replays.length;i++){
@@ -125,10 +160,12 @@
         <div class="panel-body">
           <ul id="userTabs" class="nav nav-tabs">
             <li>
-              <a href="#title" data-toggle="tab" id="MyTopic">我的主题</a>
+              <c:if test="${who=='user'}"><a href="#title" data-toggle="tab" id="MyTopic">我的主题</a></c:if>
+              <c:if test="${who=='otheruser'}"><a href="#title" data-toggle="tab" id="MyTopic">他的主题</a></c:if>
             </li>
             <li>
-              <a href="#replay" data-toggle="tab" id="MyReplay">我的回复</a>
+              <c:if test="${who=='user'}"><a href="#replay" data-toggle="tab" id="MyReplay">我的回复</a></c:if>
+              <c:if test="${who=='otheruser'}"><a href="#replay" data-toggle="tab" id="MyReplay">他的回复</a></c:if>
             </li>
           </ul>
           <div id="UserContent" class="tab-content">
@@ -142,9 +179,9 @@
                   </tr>
                 </thead>
                 <tbody id="titlebody">
-
                 </tbody>
               </table>
+              <div id="titlepage"></div>
             </div>
             <div id="replay" class="tab-pane fade in">
               <table class="table">
