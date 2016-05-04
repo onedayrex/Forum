@@ -9,8 +9,10 @@ CREATE TABLE `topic` (
   `headpath` varchar(255) DEFAULT NULL,
   `topicdisable` int(2) DEFAULT '1',
   `conter` int(11) DEFAULT '0',
+  `lasttime` datetime DEFAULT NULL,
+  `lastuserid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT
 
 CREATE TABLE `replay` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
